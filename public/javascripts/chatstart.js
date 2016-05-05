@@ -1,4 +1,4 @@
 var socket = io();
 socket.on('chat message', function(msg){
-  alert("nera");
+  alert("参加者が増えました");
   });
