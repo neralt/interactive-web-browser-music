@@ -16,9 +16,15 @@ var io           = socket_io();//ソケット用
 app.io           = io;//ソケット用
 
 // socket.io 
-io.on( "connection", function( socket )
-{
-    console.log( "A user ソケット　connected" );
+app.io.on('connection', function(socket){  
+  console.log('a user connected');
+
+  app.io.emit('chat message', "チャット音！！！");
+
+  socket.on('new message', function(msg){
+    console.log('new message: ' + msg);
+    app.io.emit('chat message', msg);
+  });
 });
 
 // view engine setup
