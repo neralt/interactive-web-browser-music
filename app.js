@@ -19,6 +19,7 @@ app.io           = io;//ソケット用
 io.on( "connection", function( socket )
 {
     console.log( "A user ソケット　connected" );
+    alert(ソケット通信開始);
 });
 
 // view engine setup
