@@ -27,6 +27,19 @@ app.io.on('connection', function(socket){
   });
 });
 
+
+//osc
+var osc = require('oscsocket');//osc用
+var sock = new osc.OSCSocket();
+
+var msgOSC = new osc.OSCMessage();
+msgOSC.address = "/osc/message/address";
+msgOSC.addArgument("i", 2000);
+msgOSC.addArgument("s", "String value." );
+
+sock.send( msgOSC, 8000 , "localhost" );
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
