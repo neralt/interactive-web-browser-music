@@ -1,9 +1,13 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: blue;
 }
 
-a {
-  color: #00B7FF;
+
+.wrapper{
+    width: 750px;
+    margin: 30px auto 40px;
+    background-color: red;
+    /*上　左右　下　autoにすれば
+    中央寄せになる*/
 }
