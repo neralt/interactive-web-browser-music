@@ -15,29 +15,32 @@ var app = express();
 var io           = socket_io();//ソケット用
 app.io           = io;//ソケット用
 
-// socket.io 
-app.io.on('connection', function(socket){  
-  console.log('a user connected');
-
-  app.io.emit('chat message', "チャット音！！！");
-
-  socket.on('new message', function(msg){
-    console.log('new message: ' + msg);
-    app.io.emit('chat message', msg);
-  });
-});
-
-
 //osc
 var osc = require('oscsocket');//osc用
 var sock = new osc.OSCSocket();
 
 var msgOSC = new osc.OSCMessage();
-msgOSC.address = "/osc/message/address";
+msgOSC.address = "/osc/";
 msgOSC.addArgument("i", 2000);
 msgOSC.addArgument("s", "String value." );
 
 sock.send( msgOSC, 8000 , "localhost" );
+// socket.io 
+app.io.on('connection', function(socket){  //表面系でio();した時に発生する。
+  socket.on('chat message', function(msg){//chat massageが来たら、発動。msgにメッセージが入ってる。
+    io.emit('chat message', msg);
+    console.log(msg);
+
+    var msgOSC = new osc.OSCMessage();
+    msgOSC.address = "/osc/";
+    msgOSC.addArgument("i", msg);
+    sock.send( msgOSC, 8000 , "localhost" );
+
+  });
+});
+
+
+
 
 
 // view engine setup
