@@ -27,15 +27,25 @@ msgOSC.addArgument("s", "String value." );
 sock.send( msgOSC, 8000 , "localhost" );
 // socket.io 
 app.io.on('connection', function(socket){  //表面系でio();した時に発生する。
-  socket.on('chat message', function(msg){//chat massageが来たら、発動。msgにメッセージが入ってる。
-    io.emit('chat message', msg);
+  socket.on('osc x', function(msg){//chat massageが来たら、発動。msgにメッセージが入ってる。
+    io.emit('osc x', msg);
     console.log(msg);
-
+//osc
     var msgOSC = new osc.OSCMessage();
     msgOSC.address = "/osc/";
-    msgOSC.addArgument("i", msg);
+    msgOSC.addArgument("f", msg/680);
     sock.send( msgOSC, 8000 , "localhost" );
 
+  });
+
+  socket.on('osc y', function(msg){//chat massageが来たら、発動。msgにメッセージが入ってる。
+    io.emit('osc y', msg);
+    console.log("y"+msg);
+//osc
+    var msgOSC = new osc.OSCMessage();
+    msgOSC.address = "/oscy/";
+    msgOSC.addArgument("f", msg/800);
+    sock.send( msgOSC, 8000 , "localhost" );
   });
 });
 

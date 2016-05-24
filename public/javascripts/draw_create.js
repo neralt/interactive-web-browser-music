@@ -61,7 +61,9 @@ function init(){
     // 時間経過
       createjs.Ticker.addEventListener("tick", handleTick);
       function handleTick() {
-        socket.emit('chat message',shape.x);
+        socket.emit('osc x',shape.x);
+        socket.emit('osc y',shape.y);
+        console.log(shape.y);//テスト
         stage.update(); // 画面更新
       }
 
